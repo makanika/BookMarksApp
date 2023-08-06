@@ -25,13 +25,15 @@ SECRET_KEY = "django-insecure-3osw%=31@8j$qw&dn=se#+1fea-2(qo40g6g@ngk0vu&275q-^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com','localhost','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     "account.apps.AccountConfig",
+    "social_django",
+    "django_extensions",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -135,7 +137,34 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
 ]
+
+SOCIAL_AUTH_FACEBOOK_KEY = '731643412102031' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '1d804d21641a4675dfde5ab2ef007031' # Facebook App Secret
+
+SOCIAL_AUTH_TWITTER_KEY = 'gmRNNWKkHKd6gJwewlMkCdawp' # Twitter API Key
+SOCIAL_AUTH_TWITTER_SECRET = 'hyHlesjmTFEpr5F8MR5KnJ8OEApwoqRQkMdy05fs3ZSE6aVAvd' # Twitter API Secret
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '158986834992-0f1p7172h1l4rdpenh001dli276vdfu2.apps.googleusercontent.com' # Google Client ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Client Secret
+
+SOCIAL_AUTH_PIPELINE = [
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+]
+
+
+
 
 
 
